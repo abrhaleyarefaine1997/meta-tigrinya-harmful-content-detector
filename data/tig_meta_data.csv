@@ -1,0 +1,74 @@
+id,name,date,content,label,language,post_type,user_reported,action_taken,city
+1.0,Biniam Girmay,2019-08-13, ነዚኦም አማ ብሓደ ጌርካ ምጉሓፎም አዩ ኔሩ ,Harmful,Tigrinya,post,True,Removed,Mekelle
+2.0,Almaz gual gere,2018-11-09,ደሓን ኩን ሓደ እተወላዊ ሰብ ናትካ ኣብ ሓበሬታ ኣለኹ,Neutral,Tigrinya,comment,False,none,Addis Ababa
+3.0,Hagos Berhe,2018-04-29,ክሊቲኦም ህዝቢታት ብጣዕሚ ቅርሕንቲ አለዎም ዝፍታሕ ውን አይመስለንን? ,Harmful,Tigrinya,share,False,Warning,Asmera
+4.0,Selam,2020-01-05,ሓበሬታ ለውጢ ሰላም ንምግባር ኣሎ,Neutral,Tigrinya,post,True,none,Adama
+5.0,Fikerte,2020-12-05,ቡዳ፤ጠቢብ፤በላዕቲ ሰብ አዮም ኮ አሳቶም አይትፈልጥን ዲካ?,Harmful,Tigrinya,comment,False,Removed,Bahr dar
+6.0,Mahari,2018-04-27, ትኳን ዝኮነ ህዝቢ ሰላም አይደልን?,Harmful,Tigrinya,post,True,Removed,Gonder
+7.0,Feven,2021-02-23,ክብር ሰብ ሰብ የክብር ,Neutral,Tigrinya,share,False,none,Shire
+8.0,Biniam,2021-11-18,ይብል እንተዝኸውን ክንድን ይኹን ንጹር ቃላት ክንክብር,Neutral,Tigrinya,comment,False,none,Adigrat
+9.0,Martha,2022-02-26,ክብርን ፍትሒን ንህዝቢ ኢትዮጵያ ክንተግበር,Neutral,Tigrinya,post,False,none,Abiy-Adi
+10.0,Yohannes,2018-09-10,ኣይናውቕን ክትተሓልዩን ብማህበረሰብ እንታይ ክትግበሩ ክትብሉና,Neutral,Tigrinya,comment,True,none,Adwa
+11.0,Nebiyu,2021-01-20,ኣምሓራ ናብ እቲ ኣገር ብሰላም ክንመጽእ እንበለ,Neutral,Tigrinya,post,False,none,Aksum
+12.0,Mahlet,2018-09-23,ንሰብ ኣይንተሓልዩን,Harmful,Tigrinya,comment,True,Removed,Humera
+13.0,Gebre,2020-10-23,ሓበሬታ ምርጫ ኣሎ ንሰብ ናይ ምምራሕ,Neutral,Tigrinya,share,False,none,Hawasa
+14.0,Ruth,2020-07-06,ደማዊ ጦርነት,Harmful,Tigrinya,post,True,Warning,Arba Minch
+15.0,Simon,2022-03-31,እንቋዕ ብሰላም ናብ ገጽ ኣብ ምሕደራ,Neutral,Tigrinya,comment,False,none,JImma
+16.0,Dana,2019-05-15,ኣይንከውን ትክክል እቲ ሰብ ክንምርሕ,Neutral,Tigrinya,post,False,none,SEMERA
+17.0,Elias,2022-09-21,ክብር ንሰብ ክትሰጥ እንዳትግደል,Neutral,Tigrinya,share,False,none,Gambella
+18.0,Abeba,2018-05-30,እቲ በላዒ ድዩ ከምዚ ዝብል ዘሎ,Harmful,Tigrinya,comment,False,Removed,Washington DC
+19.0,Masho Teklay,2021-11-04,ክብሪ ንዝግበኦ ክብሪ ንሃብ ብልዑል ማዕርግ ዝተመረቀት ኣደ! ሎሚ ሰንበት 23 ነሓሰ 2020፡ኣብ ኢትዮጵያ ክልል ትግራይ ዩኒቨርስቲ ኣኽሱም ካብ ዝተመረቁ ተምሃሮ ዩኒቨርስቲ፡ኣደ 3 ቆልዑ ዶር ንሩዓይኒ መሓመድ 3.82 ነጥቢ ብምውህላል ተሸላሚት ወርቂ መዳልያ ኰይና።ዶር ንሩዓይኒ መሓመድ ሳልሳይ ውላዳ ካብ ትሓርስ 22 መዓልታት ዝገበረ ኰይና፡ነዚ ክብሪ'ዚ ክትበቅዕ ምኽኣላ ካብ ብዙሓት ኣድናቆት ረኺባ ኣላ። በዚ ኣጋጣሚ ዶር ንሩዓይኒ ዮሃና ይብላ!😍ምንጪ፡Hakimመብሩክ ሓብብቲ😘,Neutral,Tigrinya,post,True,none,New York
+20.0,Lily,2018-10-03,ኣብ ሓደ መደብ አለና,Neutral,Tigrinya,comment,True,none,London
+21.0,Musa,2020-01-21,ዲቃላ በዚሑ አሎ,Harmful,Tigrinya,share,True,Warning,Warsaw
+22.0,Meron,2019-10-26,ሓድነትና ወሳኒ ጉዳይ አዩ,Neutral,Tigrinya,post,True,none,Berlin
+23.0,Amanuel,2021-09-09,በለይቲ ምስክር ኣሎና ኣብ ትግራይ,Neutral,Tigrinya,comment,False,none,Rome
+24.0,Mekdes,2018-02-27,ናይ ዕለት ክብር እንተሎ ኣለና,Neutral,Tigrinya,comment,True,none,Addis Ababa
+25.0,Yonas,2020-02-03,ደሓን ኩን ሓደ አንድ ሰብ,Neutral,Tigrinya,post,False,none,Mekelle
+26.0,Tesfay,2021-08-03,ሓበሬታ ኣሎና,Neutral,Tigrinya,comment,False,none,Mekelle
+27.0,Hanna,2022-04-05,ዓባይ ነይሩ ምስ ሰብ እዩ,Neutral,Tigrinya,post,False,none,Addis Ababa
+28.0,Meron,2019-08-27,ሓድነትና ወሳኒ ጉዳይ አዩ,Neutral,Tigrinya,post,,none,Frankfurt
+29.0,Tesfay,2019-06-29,ናይ ዒፍ ቋንቋ ዝዛረቡ ህዝቢ ኢና ተባሂልና በቲ ናይ ቀደም መንግስቲ ውን,Harmful,Tigrinya,comment,True,Removed,Paris
+30.0,Selam,2018-12-27,ሰላም ኣብ ሕብረትና እንከንን ክንሰርሕ,Neutral,Tigrinya,share,False,none,Mekelle
+31.0,Yosef,2020-08-18,ታይ ሓዱሽ ነገር አሎ,Neutral,Tigrinya,post,False,none,Addis Ababa
+32.0,Mahider,2022-04-12,ዞም ህወሓት ክርችሽኑ አዩ ዘለዎም,Harmful,Tigrinya,comment,,Removed,Asmera
+33.0,Kebede,2018-11-01,ኣብ ምህደራ ምርጫ ኣሎ,Neutral,Tigrinya,share,True,none,Adama
+34.0,Amare,2021-09-02,ክህዝና ቃል ንስኻ ክሰግድ ኣለኹ,Neutral,Tigrinya,post,False,none,Bahr dar
+35.0,Helina,2020-10-09,ብሓላፍነት ኣብ ሕብረተሰብ ክንሰርሕ  ,Neutral,Tigrinya,comment,False,none,Gonder
+36.0,Ephrem,2018-11-11,አቢይ ቀታሊ አዩ,Harmful,Tigrinya,share,True,Warning,Shire
+37.0,Abrhaley,2020-02-29,ሓደርኩም ደቂ ሪመይ!,Neutral,Tigrinya,post,False,,Warsaw
+38.0,Ephrem,2018-09-13,ንህዝብና ቀተልቱ መራሕትና አዮም,Harmful,Tigrinya,share,True,Warning,Shire
+39.0,Malet,2020-05-16,"ክንዲ ዝጠመየካዮ ኣይትኾልስ
+ክንዲ ዝሓረቕካዮ ኣይትመልስ
+እቲን ከይሓንቀካ
+እቲን ከየጣዕሰካ 👌",Neutral,Tigrinya,comment,False,none,Shire
+40.0,Nigus,2022-06-19,"ብድቁሰይ ምስ ኣብይ ኣራኺቡ፣ክላሽ ኣዕጢቑ ዓፋር ኣእቲውኒ ሓዲሩ እዚ ባንዳን ወዲ-ባንዳን 🤣
+• ሓወ'ቦታቱ መቐለ ንዓፋር ሸይጦምዋ ግዲ ብዘይኣዋጅ 😁",Harmful,Tigrinya,post,True,Removed,Canada
+41.0,Shewit Wudase,2018-11-03,"እዚ 'ኳ... ሓንቲ 9 ኣባላት ዘለውዋ ጋንታ ሒዙ (እንዳመርሐ) ናብ ውግእ ተላኢኹ... ደሓር መጠረሽኡ ...
+... ትግራይ ደሓን ኣላ ፤ ከምቲ ዝፈራናያ ኣይኮነትን! 🦔",Neutral,Tigrinya,post,False,none,Mekelle
+42.0,Micky Raya,2022-11-02,"💛ፅሃየ ካሕሳይ (ጀብጀብ) ምስሊ ቑልዕነትን ገድሊን❤️
+ተጋዳላይ ፀሃየ... ፀሃየ ምሒር ጅግና ተጋዳላይ እዩ ነይሩ♥",Neutral,Tigrinya,comment,False,Warning,Toronto
+43.0,Dimtsi Weyane,2019-01-01,"ውግዘት እወጃ ዘርኣዊ ፅንተት ኢሳት ኣብ ልዕሊ ተጋሩ
+
+ይነበብ!",Harmful,Tigrinya,post,True,Warning,
+44.0,TPLF Official,2019-01-01,ሙሉእ ቀልብናን ትኹረትናን ኣብ ቀንዲ ውራይና... ሕዚ'ውን ልዕሊ ኹሉ ትኹረትና ምውሓስ ሰላም፡ ደሕንነትን ህልውናን ህዝቢ ትግራይ'ዩ።,Harmful,Tigrinya,post,True,Warning,
+45.0,Eumun Serawit,2019-01-01,ህዝቢ ትግራይ እንኳዕ ደስ በለኩም አደታት... ብጉጂ ለ አብይ አሕመድ ከይ ትርበሹ...,Neutral,Tigrinya,post,True,,
+46.0,Jerry Tse,2019-01-01,ዋዕሮታት ከም አመለን ታርክ ይሰርሓ አለዋ!,Neutral,Tigrinya,post,False,none,
+47.0,Gidey Gebremeskel,2020-01-01,ንክትግብንይዎ🤔? ንክትህውፅዎ👍,Neutral,Tigrinya,share,False,none,
+48.0,Birhane Gere,2019-01-01,ጅግና ዋዕሮ,Neutral,Tigrinya,comment,False,Warning,
+49.0,Fiseha Gigs,2020-01-01,ወረዳን ጣብያን ፈትሹ፣ፅሬት ኣካይዱ፡፡ ተዘይኮይኑ ካብዚ ንላዕሊ ኣምባገነንነት የለን፡፡ ህዝቢ ይጉዳእ ኣሎ፡፡ በተለይ ወረዳ ኣሕፈሮም,Harmful,Tigrinya,comment,True,Warning,
+50.0,Dina mulu,,ገርመና ኣሎ በለ ደራፊ,Neutral,Tigrinya,replay,False,none,Mekelle
+51.0,Getachew k Reda,,ንረጋጋዕ ኣሓትን ኣሕዋትን,Neutral,Tigrinya,status,False,none,Mekelle
+52.0,Birhane Perspective,,Telaviv ንክትረክቦ ቅልል ዝበለን ብዙሓት ተምሃሮ ዝቅበልን ናይ ስኮላርሺፕ ፕሮግራም እዩ,Neutral,Tigrinya,status,False,none,Telaviv
+53.0,Mussie,,ናብ ማሕበርኩም ኣእትዎ,Neutral,Tigrinya,status,False,none,Addis Ababa
+54.0,Leake zegeye,,#teamይኾኖ ኣለኽን/ኣለኹም ዶ? ኩልና ንሳተፍ፣ ንመያየጥ,Neutral,Tigrinya,status,False,none,Dubai
+55.0,EXTRA 4N10,,ክርስትያኖ ሮናልዶ ኣቦ ማሕበራዊ ሚድያ ክርስትያኖ ካብ ሪያል ማድሪድ ናብ ጁቬንትስ ... ዝተሸጠ እንትኸዉን...,Neutral,Tigrinya,status,False,none,Mekelle
+56.0,Tadese Yemane,,ብዙሕ ሰብ መዘክር ኣባዲ ዘሞ ቀሪቡ ኣፀቢቑ ዝፈልጦ ኣይመስለንን...,Neutral,Tigrinya,status,False,none,Mekelle
+57.0,Wedi Hailu Adwa,,ኣብ ኣክሱም ህዝብና ዘቅትል ዘረሽንን ዘበሳብስን ዝነበረ ኣራዊት ሻዕብያ ...,Neutral,Tigrinya,status,False,none,Axum
+58.0,Eritrean Press,,ህወሓት ንህዝቢ ትግራይ ኣነ ይፈልጠልኻ እየ እናበለት...,Neutral,Tigrinya,status,False,Warning,Asmara
+59.0,Debretsion Gebremichael,2019-02-23,ስልጣን ኮነ ውልቀ ክብሪ ትሕቲ ትግራይን ትግ ራዋይን እዩ,Neutral,Tigrinya,status,False,none,Mekelle
+60.0,Stalin,2022-07-08,ትምኒት መፃኹ ትብለና ኣላ! ክንነብር ኢና!,Neutral,Tigrinya,post,False,Warning,Washington DC
+61.0,Tsegazab,2021-05-07,ንብጹእ ወቅዱስ ኣቡነ ማትያስ ኣብ ዘርኣዊ ምጽናት ህዝቢ ትግራይ ኣመልኪቱ ቃለ መሕትት ልገበረ ጋዜጠኛ Dennis Wadley እዩ። ናይ 14 ደቒቓ! ሎምዓልቲ ድማ ክለቆ እየ ኢሉ ኣብ ትዊተር ገጹ ኣስፊሩ ኣሎ። ንዓለም ለኸ ድማ ኣባጽሐለይ ኢሎም ብልሓተቱኒ መሰረት ድማ ክለቆ ተዳልየ እኒሀኹ ኢሉ ኣሎ። ኣብ ጉዳይ 'Tigray Genocide' ይብል። ኣብ ልሓለፈ ናይ 1 ሰዓትይ 10 ደቒቓይ መሕትት ብ EOTC ተቐሪጹ ልነበረ እንትኾን ክዕፈን ተገይሩ ብምትራፉ ምኽንያት ድማ እዙይ ጋዜጠኛ መሕትት ገይሩ እነሆ ድማ ንክወጽእ ተቓሪቡ ኣሎ።,Harmful,Tigrinya,post,True,Warning,Addis Ababa
+62.0,Eritrea-chat.com,2018-08-02,ባንዴራና ኣብ ማእከል ከተማ ሺካጎ ኣመሪካ ክትስቐል ከላ ቁርዓትን ፍቅርን ዝስመዓና መግለጺ የብሉን።,Neutral,Tigrinya,post,False,none,Chicago
+63.0,Biniam,2021-05-10,ካብ ሚያዝያ 28 - 1 ጉንበት 2013 ዓ/ም ካብ ዓዲ ዕሸር ክሳብ ፊናርዋ ኣብ ዝርከብ ሰፋሕቲ ቦታታት ዝተካየደ ኲናት ኣስታት 1800 ወረርቲ ሓይልታት ዝሞቱ እንትኮኑ 1200 ድማ ቆሲሎም ኣለው። ካብዚ ኲናት ሃዲሞም ንከምልጡ ዝፈተኑ 19 ወታደራት ፀላኢ ድማ ናብ ሩባ ተከዘ ኣትዬም ጥሒሎም ኣለው፣ ኣፍቲ ከባቢ ዝነበረ ሰራዊት ትግራይ ናይቶም ዝጠሓሉ ሂወት ንከድሕን ዋላ እኳ ፈተነ እንተገበረ ኣይተሳከዐሉን። ኣብዚ ኲናት ብርክት ዝበሉ ኣፅዋራት እውን ተማሪኮም ኣለው። #Tmh《እቲ ፅሑፍ ቃል ብቃል ኣይኮነን》,Harmful,Tigrinya,post,True,Warning,Mekelle
+64.0,Azmera,2021-05-13,ፀላእቲ ናይ ሓምት ክዳውንቲ ኣብ መቀለ ኣራጊፎም ይበሃል ኣሎ እሞ ኩላትና ንህዝብና ሓበሬታ ንበትን ከይደናገር።,Harmful,Tigrinya,post,True,Warning,Addis Ababa
+65.0,Solomon,2022-04-18,#ኣብዚኣ ንረባረብ! ''ኤርትራን ኢትዮጵያን ሕዳር 2020 ተሓባቢረን ንትግራይ ወሪረን 7ተ ሚልዮን ህዝቢ ካብ ዓለም ንኽንፀል ገይረን እየን። እቲ ስምምዕነት እውን ሰለስተ ሰሙን ሓሊፍዎ ኣሎ እስካብ ሕዚ ዝኣተዋ 69 መኻይን ጥራሕ እየን። እዙይ ማለት 4% ናይቲ ጠለብ እዩ። ህዝቢ ይመውት ኣሎ መፍትሒ ይገበረሉ ክብሉ ዋና ዳይሬክተር ውድብ ጥዕና ዓለም ፃውዒቶም ኣቕሪቦም።'' ትዊት ሪትዊት እናገበርና ድምፅና ነስምዕ። 🙏 ሃሃገረ ትግራይ ትሃገረ ትግራይ,Neutral,Tigrinya,post,True,none,Addis Ababa
