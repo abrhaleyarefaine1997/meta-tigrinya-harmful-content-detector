@@ -1,59 +1,167 @@
 import streamlit as st
+import requests
 import pandas as pd
+import time
 
-# --- Keyword list ---
-context_markers = [
-    "ደማት", "ነገራትኩም ግጉይን ሰይጣናውን ዩ", "ይተርፍ", "በሎ", "ምስንቱ ኣነ", 
-    "ድሮም አስኩም ዶ ዘይትረብሑ", "ምጉሓፎም", "ህዝቢታት ብጣዕሚ ቅርሕንቲ አለዎም",
-    "ቡዳ", "ጠቢብ", "በላዕቲ ሰብ አዮም", "ትኳን ዝኮነ ህዝቢ", "ደማዊ ጦርነት",
-    "ዲቃላ", "ይ ዒፍ ቋንቋ ዝዛረቡ ህዝቢ", "ክርችሽኑ አዩ ዘለዎም", "ዘይሰብ",
-    "ንሰብ ዘይመስል", "ቀታሊ አዩ", "ንህዝብና ቀተልቱ መራሕትና አዮም", "ናብ ውግእ",
-    "ዘርኣዊ ፅንተት", "ኣምባገነንነት", "ዘቅትል ዘረሽንን", "ወረርቲ ሓይልታት ዝሞቱ",
-    "ህበይ", "ወዓግ", "ተመን", "ጨምላቕ", "ግብረ እከይ", "ኢዚ ሰብ ዘይኮነ",
-    "ነዚኦም ከመይ ኢልና ንሓዝነሎም", "ሰይጣን", "ቐታ", "ጦርነት", "ኩናት", "ውግእ",
-    "ወዲ ሻርሙጣ", "ወዲ ዓጣሪት", "ፅናሕ ከርእየካ እየ ግዜኻ ተፀበ",
-    "ሃይማኖትኩም ትክክለኛ ኣይኮነን", "አድጊ"
-]
+# -----------------------------
+# CONFIG
+# -----------------------------
+st.set_page_config(
+    page_title="Harmful Content Moderation | Pro",
+    page_icon="🧠",
+    layout="wide"
+)
 
-# --- Load your data (replace with your actual path) ---
-# meta_data = pd.read_csv("meta_data.csv")
+API_URL = "http://127.0.0.1:8000/predict"
 
-# For demonstration, use fake data if not loading real
-meta_data = pd.read_csv("/Users/a1234/meta_tigrinya_dataset_cleaned.csv")
+# -----------------------------
+# SIDEBAR (PRO PANEL)
+# -----------------------------
+with st.sidebar:
+    st.title("🧠 Moderation AI Pro")
 
-# --- Apply Rule-Based Detection ---
-def detect_marker(content):
-    for marker in context_markers:
-        if pd.notna(content) and marker in content:
-            return marker
-    return None
+    mode = st.radio(
+        "Choose Mode",
+        ["Single Prediction", "Batch CSV"]
+    )
 
-meta_data["matched_keyword"] = meta_data["content"].apply(detect_marker)
-meta_data["predicted_label"] = meta_data["matched_keyword"].apply(lambda x: "Harmful" if x else "Neutral")
+    st.markdown("---")
+    st.info("XGBoost + Feature Engineering + FastAPI")
+    st.markdown("⚡ Real-time moderation system")
 
-# --- Metrics ---
-accuracy = (meta_data["label"] == meta_data["predicted_label"]).mean()
-conf_matrix = pd.crosstab(meta_data["label"], meta_data["predicted_label"], rownames=["Actual"], colnames=["Predicted"])
+# -----------------------------
+# HEADER
+# -----------------------------
+st.title("🚨 Content Moderation Dashboard (Pro)")
+st.caption("Detect Harmful vs Neutral content with explainable AI")
 
-# --- Streamlit App ---
-st.set_page_config(page_title="Tigrinya Harmful Meta Post Detector", layout="wide")
+# =============================
+# SINGLE PREDICTION MODE
+# =============================
+if mode == "Single Prediction":
 
-st.markdown("<h1 style='color:#4b0082;'>🛡️ Tigrinya Harmful Meta Post Detector</h1>", unsafe_allow_html=True)
-st.markdown("🚨 Rule-based detection for harmful content in Tigrinya posts.")
+    col1, col2 = st.columns([2, 1])
 
-# --- Text Input ---
-post = st.text_area("✍️ Enter a Tigrinya Post", placeholder="ምሳናይ ፅሑፍ...", height=150)
+    with col1:
+        text = st.text_area(
+            "Enter text to analyze",
+            height=180,
+            placeholder="Paste social media post, comment, message..."
+        )
 
-if st.button("🔍 Analyze"):
-    detected_keywords = [kw for kw in context_markers if kw in post]
-    num_keywords = len(detected_keywords)
-    label = "🟥 Harmful" if num_keywords > 0 else "🟩 Neutral"
-    
-    st.markdown(f"### ✅ Prediction: {label}")
-    st.markdown(f"**📝 Matched Keywords:** {', '.join(detected_keywords) if detected_keywords else 'None'}")
-    st.markdown(f"**🔢 Keyword Count:** {num_keywords}")
-    st.markdown(f"**📈 Model Accuracy:** {accuracy:.2%}")
+    with col2:
+        st.metric("Characters", len(text))
+        st.metric("Words", len(text.split()) if text else 0)
 
-# --- Confusion Matrix ---
-st.markdown("### 📊 Confusion Matrix")
-st.dataframe(conf_matrix, use_container_width=True)
+    if st.button("🔍 Analyze", use_container_width=True):
+
+        if not text.strip():
+            st.warning("Please enter text")
+        else:
+            start = time.time()
+
+            try:
+                response = requests.post(API_URL, json={"content": text})
+                latency = time.time() - start
+
+                if response.status_code == 200:
+                    result = response.json()
+
+                    label = result["label"]
+                    confidence = float(result["confidence"])
+                    explanation = result.get("explanation", "")
+
+                    st.markdown("## 📊 Prediction Result")
+
+                    # -------------------------
+                    # RESULT CARDS
+                    # -------------------------
+                    c1, c2, c3 = st.columns(3)
+
+                    with c1:
+                        st.metric("Prediction", label)
+
+                    with c2:
+                        st.metric("Confidence", f"{confidence:.2f}")
+
+                    with c3:
+                        st.metric("Latency (s)", f"{latency:.3f}")
+
+                    # -------------------------
+                    # VISUAL RESULT
+                    # -------------------------
+                    if label == "Harmful":
+                        st.error("🚨 Harmful Content Detected")
+                    else:
+                        st.success("✅ Content is Safe")
+
+                    st.progress(int(confidence * 100))
+
+                    # -------------------------
+                    # EXPLANATION BLOCK
+                    # -------------------------
+                    st.markdown("### 🧠 Model Explanation")
+
+                    if explanation:
+                        st.info(explanation)
+                    else:
+                        st.warning("No explanation returned from model")
+
+                else:
+                    st.error(f"API Error: {response.text}")
+
+            except Exception as e:
+                st.error(f"Connection error: {e}")
+
+# =============================
+# BATCH MODE (CSV)
+# =============================
+elif mode == "Batch CSV":
+
+    st.markdown("## 📂 Batch Moderation")
+
+    file = st.file_uploader("Upload CSV file", type=["csv"])
+
+    if file is not None:
+
+        df = pd.read_csv(file)
+
+        st.write("Preview:", df.head())
+
+        if "content" not in df.columns:
+            st.error("CSV must contain a 'content' column")
+        else:
+
+            if st.button("Run Batch Prediction"):
+
+                results = []
+                start = time.time()
+
+                for text in df["content"].fillna("").astype(str):
+
+                    try:
+                        res = requests.post(API_URL, json={"content": text})
+                        if res.status_code == 200:
+                            results.append(res.json()["label"])
+                        else:
+                            results.append("Error")
+
+                    except:
+                        results.append("Error")
+
+                df["prediction"] = results
+
+                st.success("Batch prediction complete")
+                st.dataframe(df)
+
+                st.download_button(
+                    "Download Results",
+                    df.to_csv(index=False),
+                    file_name="moderation_results.csv"
+                )
+
+# -----------------------------
+# FOOTER
+# -----------------------------
+st.markdown("---")
+st.caption("🚀 Pro Moderation System | FastAPI + XGBoost + Streamlit")

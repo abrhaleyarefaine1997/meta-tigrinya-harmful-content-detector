@@ -1,31 +1,94 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import joblib
-import os
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
+from typing import List
+import time
+import logging
 
-from preprocessing.pipeline import preprocess
+from src.inference.predictor import Predictor
 
-app = FastAPI()
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("api")
 
-# Load model and vectorizer
-MODEL_PATH = os.path.join("model", "xgb_model.joblib")
-model = joblib.load(MODEL_PATH)
+app = FastAPI(
+    title="Tigrinya Harmful Content Detector API",
+    version="1.2.0"
+)
 
-class PostText(BaseModel):
-    text: str
+predictor = None
+
+try:
+    predictor = Predictor(
+        model_path="models/xgb_model.json",
+        feature_builder_path="models/feature_builder.pkl"
+    )
+    logger.info("Model loaded successfully")
+except Exception as e:
+    logger.error(f"Model loading failed: {e}")
+
+class TextRequest(BaseModel):
+    content: str = Field(..., min_length=3, max_length=2000)
+
+class PredictionResponse(BaseModel):
+    input_text: str
+    label: str
+    confidence: float
+    explanation: str
+    latency_ms: float
+
+class BatchRequest(BaseModel):
+    items: List[str]
+
+class BatchItem(BaseModel):
+    input_text: str
+    label: str
+    confidence: float
+
+class BatchResponse(BaseModel):
+    results: List[BatchItem]
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to the Tigrinya Harmful Post Detector API"}
+    return {"status": "running"}
 
-@app.post("/predict")
-def predict(post: PostText):
-    features = preprocess(post.text)
-    pred = model.predict(features)[0]
-    prob = model.predict_proba(features)[0][pred]
+@app.get("/v1/health")
+def health():
+    return {"status": "ok", "model_loaded": predictor is not None}
 
-    return {
-        "text": post.text,
-        "prediction": "Harmful" if pred == 1 else "Neutral",
-        "confidence": round(float(prob), 4)
-    }
+@app.post("/v1/predict", response_model=PredictionResponse)
+def predict(request: TextRequest):
+    if predictor is None:
+        raise HTTPException(status_code=500, detail="Model not loaded")
+
+    start = time.time()
+    text = request.content.strip()
+
+    proba = float(predictor.predict_proba(text))
+    label = "Harmful" if proba >= 0.5 else "Neutral"
+
+    return PredictionResponse(
+        input_text=text,
+        label=label,
+        confidence=proba,
+        explanation="Harmful content detected" if label == "Harmful" else "Safe content",
+        latency_ms=round((time.time() - start) * 1000, 2)
+    )
+
+@app.post("/v1/predict_batch", response_model=BatchResponse)
+def predict_batch(request: BatchRequest):
+    if predictor is None:
+        raise HTTPException(status_code=500, detail="Model not loaded")
+
+    results = []
+
+    for text in request.items:
+        text = text.strip()
+        proba = float(predictor.predict_proba(text))
+        label = "Harmful" if proba >= 0.5 else "Neutral"
+
+        results.append(BatchItem(
+            input_text=text,
+            label=label,
+            confidence=proba
+        ))
+
+    return BatchResponse(results=results)

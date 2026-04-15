@@ -1,121 +1,118 @@
-import dash
-from dash import dcc, html, Input, Output, State
+import streamlit as st
+import requests
 import pandas as pd
-import plotly.express as px
-import plotly.figure_factory as ff
+import time
 
-# ========================
-# 🔍 Load and Process Data
-# ========================
-
-# --- Harmful context markers ---
-context_markers = [
-    "ደማት", "ነገራትኩም ግጉይን ሰይጣናውን ዩ", "ይተርፍ", "በሎ", "ምስንቱ ኣነ", 
-    "ድሮም አስኩም ዶ ዘይትረብሑ", "ምጉሓፎም", "ህዝቢታት ብጣዕሚ ቅርሕንቲ አለዎም",
-    "ቡዳ", "ጠቢብ", "በላዕቲ ሰብ አዮም", "ትኳን ዝኮነ ህዝቢ", "ደማዊ ጦርነት",
-    "ዲቃላ", "ይ ዒፍ ቋንቋ ዝዛረቡ ህዝቢ", "ክርችሽኑ አዩ ዘለዎም", "ዘይሰብ",
-    "ንሰብ ዘይመስል", "ቀታሊ አዩ", "ንህዝብና ቀተልቱ መራሕትና አዮም", "ናብ ውግእ",
-    "ዘርኣዊ ፅንተት", "ኣምባገነንነት", "ዘቅትል ዘረሽንን", "ወረርቲ ሓይልታት ዝሞቱ",
-    "ህበይ", "ወዓግ", "ተመን", "ጨምላቕ", "ግብረ እከይ", "ኢዚ ሰብ ዘይኮነ",
-    "ነዚኦም ከመይ ኢልና ንሓዝነሎም", "ሰይጣን", "ቐታ", "ጦርነት", "ኩናት", "ውግእ",
-    "ወዲ ሻርሙጣ", "ወዲ ዓጣሪት", "ፅናሕ ከርእየካ እየ ግዜኻ ተፀበ",
-    "ሃይማኖትኩም ትክክለኛ ኣይኮነን", "አድጊ"
-]
-
-# --- Load dataset ---
-meta_data = pd.read_csv("/Users/a1234/meta_tigrinya_dataset_cleaned.csv")
-
-# --- Rule-based classification ---
-def detect_marker(content):
-    for marker in context_markers:
-        if pd.notna(content) and marker in content:
-            return marker
-    return None
-
-meta_data["matched_keyword"] = meta_data["content"].apply(detect_marker)
-meta_data["predicted_label"] = meta_data["matched_keyword"].apply(lambda x: "Harmful" if x else "Neutral")
-
-# --- Evaluation metrics ---
-accuracy = (meta_data["label"] == meta_data["predicted_label"]).mean()
-conf_matrix = pd.crosstab(meta_data["label"], meta_data["predicted_label"], rownames=["Actual"], colnames=["Predicted"])
-
-# ========================
-# 🎨 Dash App
-# ========================
-
-app = dash.Dash(__name__)
-app.title = "Tigrinya Harmful Post Detector"
-
-app.layout = html.Div([
-    html.H1("🛡️ Tigrinya Harmful Meta Post Detector", style={'color': '#4b0082'}),
-    html.P("🚨 Rule-based detection for harmful content in Tigrinya posts."),
-
-    dcc.Textarea(
-        id='post-input',
-        placeholder="✍️ Enter a Tigrinya Post...",
-        style={'width': '100%', 'height': 150, 'fontSize': 16}
-    ),
-    html.Button("🔍 Analyze", id="analyze-btn", style={'marginTop': '10px'}),
-
-    html.Div(id="result-box", style={'marginTop': '20px'}),
-
-    html.H3("📈 Model Accuracy", style={'marginTop': '30px'}),
-    html.Div(f"{accuracy:.2%}", style={'fontSize': '20px', 'color': 'green'}),
-
-    html.H3("📊 Confusion Matrix"),
-    dcc.Graph(
-        id="conf-matrix-graph",
-        figure=ff.create_annotated_heatmap(
-            z=conf_matrix.values,
-            x=conf_matrix.columns.tolist(),
-            y=conf_matrix.index.tolist(),
-            colorscale="Blues"
-        )
-    ),
-    
-    html.H3("📃 Top Posts Detected as Harmful"),
-    dcc.Dropdown(
-        id="harmful-posts-dropdown",
-        options=[{"label": row["content"][:80] + "...", "value": row["content"]} 
-                 for _, row in meta_data[meta_data["predicted_label"]=="Harmful"].head(10).iterrows()],
-        placeholder="Select a sample harmful post"
-    ),
-    html.Div(id="selected-harmful-post", style={'marginTop': '10px', 'fontStyle': 'italic', 'color': '#b30000'})
-])     
-
-# ========================
-# 🔁 Callbacks
-# ========================
-
-@app.callback(
-    Output("result-box", "children"),
-    Input("analyze-btn", "n_clicks"),
-    State("post-input", "value")
+st.set_page_config(
+    page_title="TIG Moderation AI",
+    page_icon="🧠",
+    layout="wide"
 )
-def classify_post(n_clicks, post):
-    if not post:
-        return ""
-    
-    detected_keywords = [kw for kw in context_markers if kw in post]
-    label = "🟥 Harmful" if detected_keywords else "🟩 Neutral"
-    return html.Div([
-        html.P(f"✅ Prediction: {label}", style={'fontSize': '18px'}),
-        html.P(f"🧩 Matched Keywords: {', '.join(detected_keywords) if detected_keywords else 'None'}"),
-        html.P(f"🔢 Keyword Count: {len(detected_keywords)}")
-    ])
 
-@app.callback(
-    Output("selected-harmful-post", "children"),
-    Input("harmful-posts-dropdown", "value")
-)
-def display_selected_post(post):
-    if post:
-        return f"📝 {post}"
-    return ""
+API = "http://127.0.0.1:8000/v1/predict"
+BATCH = "http://127.0.0.1:8000/v1/predict_batch"
 
-# ========================
-# 🚀 Run App
-# ========================
+if "history" not in st.session_state:
+    st.session_state.history = []
 
-if __name__ == "__main__":
-    app.run(debug=True)
+st.markdown("""
+<style>
+.main-title {
+    text-align:center;
+    font-size:42px;
+    font-weight:800;
+    background: linear-gradient(90deg, #4F8BF9, #A855F7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card {
+    padding:20px;
+    border-radius:15px;
+    background:#111827;
+    box-shadow:0px 4px 20px rgba(0,0,0,0.3);
+}
+
+.result-safe {
+    color:#22c55e;
+    font-size:24px;
+    font-weight:700;
+}
+
+.result-risk {
+    color:#ef4444;
+    font-size:24px;
+    font-weight:700;
+}
+
+.result-uncertain {
+    color:#f59e0b;
+    font-size:24px;
+    font-weight:700;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("<div class='main-title'>🧠 Tigrinya Harmful Content AI</div>", unsafe_allow_html=True)
+
+st.markdown("---")
+
+col1, col2 = st.columns([2,1])
+
+with col1:
+    text = st.text_area("Enter text", height=150, placeholder="Type Tigrinya or English text...")
+
+with col2:
+    st.metric("Characters", len(text))
+    st.metric("Words", len(text.split()) if text else 0)
+
+if st.button("🚀 Analyze"):
+
+    if len(text.strip()) < 3:
+        st.warning("Minimum 3 characters required")
+    else:
+        start = time.time()
+
+        r = requests.post(API, json={"content": text})
+        latency = time.time() - start
+
+        if r.status_code == 200:
+
+            d = r.json()
+            p = d["confidence"]
+
+            if p >= 0.65:
+                label = "🔴 Harmful"
+                style = "result-risk"
+            elif p >= 0.40:
+                label = "🟡 Uncertain"
+                style = "result-uncertain"
+            else:
+                label = "🟢 Neutral"
+                style = "result-safe"
+
+            st.markdown(f"<div class='{style}'>{label}</div>", unsafe_allow_html=True)
+
+            st.progress(float(p))
+
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Confidence", f"{p:.2f}")
+            c2.metric("Latency", f"{latency:.3f}s")
+            c3.metric("Model Label", d["label"])
+
+            st.info(d["explanation"])
+
+            st.session_state.history.append({
+                "text": text,
+                "label": label,
+                "confidence": p,
+                "latency": latency
+            })
+
+st.markdown("---")
+
+st.subheader("📊 History")
+
+if st.session_state.history:
+    df = pd.DataFrame(st.session_state.history)
+    st.dataframe(df.tail(10))
